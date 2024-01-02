@@ -3,3 +3,51 @@
 Загрузил данные в новую базу данных на postgres 
 Покрутил простые селекты 
 селекты по заданию
+
+
+-- основные метрики (total_sales, total_profit, profit_ratio, profit_per_order, sales_per_customer)
+select 	round(sum(o.sales),2) as total_sales ,
+		round(sum(o.profit),2) as total_profit,
+		round(sum(o.profit) / sum(o.sales) * 100,2) as profit_ratio,
+		round(sum(o.sales) / count(distinct o.order_id),2)  as profit_per_order,
+		round(sum(sales) / count(distinct customer_id), 2) as sales_per_customer ,
+		round(avg(discount)* 100 ,2 ) as avg_discount_
+from orders o 
+
+ -- Moyntly sales per segment
+select to_char(order_date::date, 'month, yyyy') as month, segment, round(sum(sales),2) sum_sales
+from orders o
+group by month, segment
+order by 3 desc
+
+--Sales by Product Category over time
+select
+segment,
+sum(sales) as sales
+from orders o
+group by segment
+order by segment ;
+
+-- monthly sales be product category
+select to_char(order_date::date, 'month, yyyy') as month, category , round(sum(sales),2) sum_sales
+from orders o
+group by month, category 
+order by 3 desc
+
+
+--Sales by Product Category over time
+select
+segment,
+sum(sales) as sales
+from orders o
+group by segment
+order by 1;
+
+
+-- sales and profit by customer
+select  distinct customer_name ,
+		round(sum(sales),2 ) as total_sale_per_customer,
+		sum(profit) as total_profit_per_customer
+from orders o 
+group by customer_name  
+order by  total_sale_per_customer desc 
