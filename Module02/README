@@ -51,6 +51,5 @@ select  distinct customer_name ,
 from orders o 
 group by customer_name  
 order by  total_sale_per_customer desc 
-<p align="center">
- <img width="200px" src="2b05459efeb9d31943e1f0e365f05751.png" alt="qr"/>
-</p>
+
+![Image alt](https://github.com/siamix8/DataLearn/Module02/IMG/2b05459efeb9d31943e1f0e365f05751.png)
